@@ -83,9 +83,11 @@ h3 { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02
 .section > h2, .section-head { position: sticky; top: 96px; }
 .section-head p { font-size: 15px; line-height: 1.55; color: var(--muted); margin-top: 12px; max-width: 26ch; }
 .prose { display: flex; flex-direction: column; gap: 20px; max-width: 64ch; font-size: 17px; line-height: 1.65; }
+.prose a { text-decoration: underline; text-decoration-color: var(--border); text-underline-offset: 3px; }
+.prose a:hover { text-decoration-color: var(--ink); }
 
 /* — research cards — */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .card { background: var(--card); border-radius: 16px; padding: 28px 28px 32px; display: flex; flex-direction: column; gap: 14px; }
 .card p { font-size: 15px; color: var(--muted); }
 .num { font-size: 13px; color: var(--muted); font-feature-settings: "tnum" 1; }
@@ -140,5 +142,6 @@ h3 { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02
   .nav-links { gap: 18px; }
   .nav-links a:not(.btn) { display: none; }
   .row { grid-template-columns: 1fr; gap: 4px; }
+  .cards { grid-template-columns: 1fr; }
   .lede { font-size: 17px; }
 }
