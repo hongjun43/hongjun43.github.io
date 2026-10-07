@@ -69,9 +69,9 @@ h3 { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.02
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 72px; align-items: center;
 }
 .hero-text { min-width: 0; }
-.lede { font-size: 19px; line-height: 1.55; color: var(--muted); margin-top: 24px; max-width: 56ch; }
+.lede { font-size: 19px; line-height: 1.55; margin-top: 20px; max-width: 56ch; }
 .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
-.portrait { width: 320px; height: 320px; object-fit: cover; object-position: center top; border-radius: 16px; background: var(--card); }
+.portrait { width: 200px; height: 200px; object-fit: cover; object-position: center top; border-radius: 16px; background: var(--card); }
 
 /* — sections — */
 .section {
