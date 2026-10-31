@@ -178,13 +178,14 @@ h1 {
 .prose a:hover { background-size: 100% 1px, 100% 1px; }
 .prose a.is-touched { background-size: 100% 1px, 100% 1px; }
 
-/* research interests: text on the left, an icon on the right that animates on hover */
+/* research interests: an icon on the left that animates on hover, the text beside it */
 .interest-list { list-style: none; margin: 0; padding: 0; border-top: var(--list-rule); }
 .interest-list li {
-  display: grid; grid-template-columns: minmax(0, 1fr) 44px; column-gap: 32px; align-items: center;
+  display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 32px; align-items: center;
   padding: 24px 0 25px; border-bottom: var(--list-rule); transition: padding 260ms var(--ease);
 }
-.interest-copy { display: grid; gap: 7px; }
+.interest-copy { grid-column: 2; grid-row: 1; display: grid; gap: 7px; }
+.interest-list .glyph { grid-column: 1; grid-row: 1; }
 .interest-list h3 {
   font-size: clamp(calc(18px * var(--fs)), calc(1.8vw * var(--fs)), calc(24px * var(--fs))); line-height: 1.28;
   font-weight: var(--w-heading); letter-spacing: var(--track-h3);
@@ -257,6 +258,10 @@ h1 {
   font-weight: var(--w-mono); letter-spacing: var(--track-mono); font-variant-numeric: tabular-nums;
 }
 .dated-list p { font-size: calc(17px * var(--fs)); line-height: 1.4; letter-spacing: var(--track-list); }
+/* a paper in Publications: its title, the authors (yours in bold), and where it stands */
+.paper { display: grid; gap: 4px; }
+.paper .paper-title { font-size: calc(19px * var(--fs)); line-height: 1.3; font-weight: var(--w-heading); letter-spacing: var(--track-h3); }   /* a little larger than the lines under it */
+.paper strong { font-weight: 600; }
 
 /* styles for the hidden publication template in index.html */
 .muted { color: var(--muted); }
@@ -324,7 +329,7 @@ h1 {
 @media (max-width: 640px) {
   :root { --fs: 1.1; }
   .nav-links a:not(.btn) { display: none; }
-  .interest-list li { grid-template-columns: minmax(0, 1fr) 36px; column-gap: 16px; }
+  .interest-list li { grid-template-columns: 36px minmax(0, 1fr); column-gap: 16px; }
   .glyph { width: 36px; height: 36px; }
 }
 @media (max-width: 520px) {
