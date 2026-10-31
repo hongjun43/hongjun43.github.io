@@ -28,7 +28,7 @@
   --track-intro: -0.025em;
   --track-list: -0.01em;
   --track-mono: normal;
-  --glass-blur: 8px;           /* how much the glass top bar blurs the page behind it */
+  --glass-blur: 6px;           /* how much the glass top bar blurs the page behind it */
   --rule-lit: var(--dot);       /* colour of a line between sections as the mouse passes it */
   --page-width: 1240px;
   --nav-height: 64px;
