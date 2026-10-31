@@ -24,6 +24,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@400;500;600;700&display=swap">
+<script>
+  // every visit shows the hero arranged one of four ways, each equally likely (see the end of styles.css)
+  document.documentElement.classList.add(['hero-photo-left', 'hero-photo-right', 'hero-centred', 'hero-photo-above'][Math.floor(Math.random() * 4)]);
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.classList.add('intro');
+    window.setTimeout(function () { document.documentElement.classList.remove('intro', 'ready'); }, 5000);   // never leave text hidden
+  }
+</script>
 <link rel="stylesheet" href="styles.css">
 <script data-goatcounter="https://hongjun43.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -48,7 +56,7 @@
     <div class="portrait"><img src="IMG_6592.JPG" alt="Portrait of Hong Jun Lee" width="330" height="330"></div>
     <div class="hero-copy">
       <h1>Hong Jun Lee</h1>
-      <p class="introduction">I’m a first‑year PhD student in Computer Science at King’s College London. I work on multi-agent reinforcement learning and large language models, currently focusing on meta-reinforcement learning for algorithm discovery.</p>
+      <p class="introduction">I’m a first‑year PhD student in Computer Science at King’s College London.<br>I work on multi-agent reinforcement learning and large language models, currently focusing on meta-reinforcement learning for algorithm discovery.</p>
       <div class="actions">
       <a class="btn btn-dark" href="mailto:hong_jun.lee@kcl.ac.uk">Email</a>
       <a class="btn btn-outline" href="cv.pdf">CV</a>
@@ -208,6 +216,48 @@
       touched = el;
       if (el) el.classList.add('is-touched');
     }, { passive: true });
+  })();
+</script>
+<script>
+  // Start the entrance on the next frame (so it animates from the hidden state), then tidy up.
+  (function () {
+    var root = document.documentElement;
+    if (!root.classList.contains('intro')) return;
+    window.requestAnimationFrame(function () { window.requestAnimationFrame(function () { root.classList.add('ready'); }); });
+    window.setTimeout(function () { root.classList.remove('intro', 'ready'); }, 2600);
+  })();
+</script>
+<script>
+  // The lines between sections turn black while the mouse pointer is on one, and for a moment whenever
+  // one passes it, whether the mouse moves or the page scrolls under it; then they fade back.
+  (function () {
+    var HOLD = 300, NEAR = 8;   // ms a line stays black after the pointer leaves it; px around a line that count as on it
+    var lines = Array.prototype.slice.call(document.querySelectorAll('.hero, .section')).map(function (el) {
+      return { el: el, near: false, side: 0, timer: 0 };
+    });
+    var pointer = null;   // where the mouse is, in window coordinates, while it is over the page
+    function light(l) {
+      window.clearTimeout(l.timer);
+      l.el.classList.add('rule-lit');
+      l.timer = window.setTimeout(function () { if (!l.near) l.el.classList.remove('rule-lit'); }, HOLD);
+    }
+    function check() {
+      lines.forEach(function (l) {
+        var r = l.el.getBoundingClientRect(), y = r.bottom - 0.5;
+        var along = !!pointer && pointer.x >= r.left && pointer.x <= r.right;
+        var side = pointer ? (pointer.y < y ? -1 : 1) : 0, was = l.near;
+        l.near = along && Math.abs(pointer.y - y) <= NEAR;
+        if (l.near || was || (along && l.side && side !== l.side)) light(l);   // on it, just left it, or passed it
+        l.side = side;
+      });
+    }
+    window.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      pointer = { x: e.clientX, y: e.clientY };
+      check();
+    }, { passive: true });
+    window.addEventListener('scroll', check, { passive: true });
+    document.documentElement.addEventListener('pointerleave', function () { pointer = null; check(); });
   })();
 </script>
 
