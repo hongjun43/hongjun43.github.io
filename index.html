@@ -188,6 +188,28 @@
     update();
   })();
 </script>
+<script>
+  // Phones have no pointer to hover with, so a tap stands in: whatever you tap shows its hover
+  // effect until you tap somewhere else. A swipe to scroll does not count as a tap.
+  (function () {
+    var HOVERABLE = '.interest-list li, .dated-list li, .portrait, .btn, .prose a, .brand, .nav-links a, .footer a';
+    var touched = null, start = null;
+    document.addEventListener('pointerdown', function (e) {
+      start = e.pointerType === 'mouse' ? null : { x: e.clientX, y: e.clientY };
+    }, { passive: true });
+    document.addEventListener('pointercancel', function () { start = null; }, { passive: true });
+    document.addEventListener('pointerup', function (e) {
+      var tap = start && Math.abs(e.clientX - start.x) < 10 && Math.abs(e.clientY - start.y) < 10;
+      start = null;
+      if (!tap) return;
+      var el = e.target.closest ? e.target.closest(HOVERABLE) : null;
+      if (el === touched) return;
+      if (touched) touched.classList.remove('is-touched');
+      touched = el;
+      if (el) el.classList.add('is-touched');
+    }, { passive: true });
+  })();
+</script>
 
 </body>
 </html>

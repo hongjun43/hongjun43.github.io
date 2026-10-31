@@ -86,6 +86,7 @@ h1, h2, h3, p { margin: 0; }
   background: currentColor; transition: right 220ms var(--ease);
 }
 .brand:hover::after, .nav-links a:not(.btn):hover::after, .footer a:hover::after { right: 0; }
+.brand.is-touched::after, .nav-links a:not(.btn).is-touched::after, .footer a.is-touched::after { right: 0; }
 /* a small dot under the menu item for the section you are reading */
 .nav-links a:not(.btn)::before {
   content: ""; position: absolute; left: 50%; bottom: -10px; width: 4px; height: 4px; margin-left: -2px;
@@ -103,15 +104,20 @@ h1, h2, h3, p { margin: 0; }
 }
 .btn svg { transition: transform 260ms var(--ease); }
 .btn:hover { transform: translateY(-1px); }
+.btn.is-touched { transform: translateY(-1px); }
 .btn:hover svg { transform: translate(2px, -2px); }
+.btn.is-touched svg { transform: translate(2px, -2px); }
 .btn:active { transform: translateY(0) scale(0.98); }
 .btn-dark { background: #0d0d0d; color: #fff; }
 /* buttons invert on hover: black ones turn white (outlined inside so nothing moves),
    outlined ones turn black. The Email in the top bar keeps a softer hover (below). */
 .btn-dark:hover { background: #fff; color: #0d0d0d; box-shadow: inset 0 0 0 1px #0d0d0d, 0 8px 18px rgba(13, 13, 13, 0.12); }
+.btn-dark.is-touched { background: #fff; color: #0d0d0d; box-shadow: inset 0 0 0 1px #0d0d0d, 0 8px 18px rgba(13, 13, 13, 0.12); }
 .btn-outline { border: 1px solid #d9d9d9; color: #0d0d0d; }
 .btn-outline:hover { background: #0d0d0d; color: #fff; border-color: #0d0d0d; box-shadow: 0 8px 18px rgba(13, 13, 13, 0.18); }
+.btn-outline.is-touched { background: #0d0d0d; color: #fff; border-color: #0d0d0d; box-shadow: 0 8px 18px rgba(13, 13, 13, 0.18); }
 .nav-links .btn-dark:hover { background: #333; color: #fff; box-shadow: 0 8px 18px rgba(13, 13, 13, 0.18); }
+.nav-links .btn-dark.is-touched { background: #333; color: #fff; box-shadow: 0 8px 18px rgba(13, 13, 13, 0.18); }
 .btn-sm { height: 36px; padding: 0 16px; }
 .actions .btn { font-size: calc(13px * var(--fs-hero)); }
 /* the Email button in the top bar uses the same font as the menu items beside it */
@@ -134,6 +140,7 @@ h1, h2, h3, p { margin: 0; }
 }
 .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform 900ms var(--ease); }
 .portrait:hover img { transform: scale(1.04); }
+.portrait.is-touched img { transform: scale(1.04); }
 .hero-copy { grid-column: 2; grid-row: 1; padding: 72px 0 78px; }
 h1 {
   margin-bottom: 45px; font-size: clamp(calc(36px * var(--fs-hero)), calc(3.6vw * var(--fs-hero)), calc(46px * var(--fs-hero))); line-height: 0.95;
@@ -157,6 +164,7 @@ h1 {
   transition: background-size 350ms var(--ease);
 }
 .prose a:hover { background-size: 100% 1px, 100% 1px; }
+.prose a.is-touched { background-size: 100% 1px, 100% 1px; }
 
 /* research interests: text on the left, an icon on the right that animates on hover */
 .interest-list { list-style: none; margin: 0; padding: 0; border-top: var(--list-rule); }
@@ -175,22 +183,31 @@ h1 {
   stroke-linecap: round; stroke-linejoin: round; transition: color 300ms ease;
 }
 .interest-list li:hover .glyph { color: var(--accent); }
+.interest-list li.is-touched .glyph { color: var(--accent); }
 .glyph .g-outer, .glyph .g-inner { transform-origin: 24px 24px; }
 .interest-list li:hover .g-outer { animation: spin 4s linear infinite; }
+.interest-list li.is-touched .g-outer { animation: spin 4s linear infinite; }
 .interest-list li:hover .g-inner { animation: spin 2.6s linear infinite reverse; }
+.interest-list li.is-touched .g-inner { animation: spin 2.6s linear infinite reverse; }
 @keyframes spin { to { transform: rotate(360deg); } }
 .glyph .node, .glyph .bubble-front { fill: var(--background); }
 .glyph .node { transform-box: fill-box; transform-origin: center; }
 .interest-list li:hover .node-a { animation: beat 1.6s var(--ease) infinite; }
+.interest-list li.is-touched .node-a { animation: beat 1.6s var(--ease) infinite; }
 .interest-list li:hover .node-b { animation: beat 1.6s var(--ease) 0.8s infinite; }
+.interest-list li.is-touched .node-b { animation: beat 1.6s var(--ease) 0.8s infinite; }
 @keyframes beat { 0%, 100% { transform: scale(1); } 40% { transform: scale(1.25); } }
 .glyph .spiral { stroke-dashoffset: 0; }
 .interest-list li:hover .spiral { animation: draw 2.4s var(--ease) infinite alternate; }
+.interest-list li.is-touched .spiral { animation: draw 2.4s var(--ease) infinite alternate; }
 @keyframes draw { from { stroke-dashoffset: var(--len); } to { stroke-dashoffset: 0; } }
 .glyph .typing { fill: currentColor; stroke: none; }
 .interest-list li:hover .typing { animation: blink 1.2s infinite both; }
+.interest-list li.is-touched .typing { animation: blink 1.2s infinite both; }
 .interest-list li:hover .typing:nth-of-type(2) { animation-delay: 0.2s; }
+.interest-list li.is-touched .typing:nth-of-type(2) { animation-delay: 0.2s; }
 .interest-list li:hover .typing:nth-of-type(3) { animation-delay: 0.4s; }
+.interest-list li.is-touched .typing:nth-of-type(3) { animation-delay: 0.4s; }
 @keyframes blink { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
 
 /* publications and news: dated rows that nudge right on hover */
@@ -204,22 +221,25 @@ h1 {
 @media (hover: hover) {
   .interest-list li:hover, .dated-list li:hover { padding-left: 10px; }
 }
+.interest-list li.is-touched, .dated-list li.is-touched { padding-left: 10px; }
 /* hover: a short orange bar grows at the left edge of the row */
+.interest-list li, .dated-list li { position: relative; }
+.interest-list li::before, .dated-list li::before {
+  content: ""; position: absolute; left: -18px; width: 3px; border-radius: 3px;
+  background: var(--dot); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease);
+}
+.interest-list li::before { top: 24px; bottom: 25px; }
+.dated-list li::before { top: 25px; bottom: 27px; }
 @media (hover: hover) {
-  .interest-list li, .dated-list li { position: relative; }
-  .interest-list li::before, .dated-list li::before {
-    content: ""; position: absolute; left: -18px; width: 3px; border-radius: 3px;
-    background: var(--dot); transform: scaleY(0); transform-origin: top; transition: transform 0.4s var(--ease);
-  }
-  .interest-list li::before { top: 24px; bottom: 25px; }
-  .dated-list li::before { top: 25px; bottom: 27px; }
   .interest-list li:hover::before, .dated-list li:hover::before { transform: scaleY(1); }
 }
+.interest-list li.is-touched::before, .dated-list li.is-touched::before { transform: scaleY(1); }
 /* with both: the bar moves right with the text, so it keeps the same gap to it as on its own */
+.interest-list li::before, .dated-list li::before { transition: transform 0.4s var(--ease), left 260ms var(--ease); }
 @media (hover: hover) {
-  .interest-list li::before, .dated-list li::before { transition: transform 0.4s var(--ease), left 260ms var(--ease); }
   .interest-list li:hover::before, .dated-list li:hover::before { left: -8px; }
 }
+.interest-list li.is-touched::before, .dated-list li.is-touched::before { left: -8px; }
 .dated-list time {
   padding-top: 3px; color: var(--muted); font-family: var(--mono); font-size: calc(12px * var(--fs)); line-height: 1;
   font-weight: var(--w-mono); letter-spacing: var(--track-mono); font-variant-numeric: tabular-nums;
@@ -247,6 +267,7 @@ h1 {
   border-radius: 999px; border: 1px solid #d9d9d9; font-size: calc(13px * var(--fs)); font-weight: var(--w-button);
 }
 .chip:hover { border-color: #0d0d0d; }
+.chip.is-touched { border-color: #0d0d0d; }
 .row { display: grid; grid-template-columns: 112px 1fr; gap: 20px; padding: 25px 0 27px; border-top: var(--list-rule); }
 .row-key { padding-top: 3px; color: var(--muted); font-family: var(--mono); font-size: calc(12px * var(--fs)); font-weight: var(--w-mono); }
 .note { padding-top: 16px; border-top: var(--list-rule); color: var(--muted); font-size: calc(15px * var(--fs)); }
@@ -258,9 +279,9 @@ h1 {
 .footer a { font-size: calc(12px * var(--fs)); }
 .footer-links { display: flex; gap: 25px; }
 
-/* phones and tablets: no hover, so nothing should stay shifted after a tap */
+/* phones and tablets: a lingering :hover after a tap should not move things (a deliberate tap uses .is-touched) */
 @media (hover: none) {
-  .portrait:hover img, .btn:hover, .btn:hover svg { transform: none; }
+  .portrait:hover:not(.is-touched) img, .btn:hover:not(.is-touched), .btn:hover:not(.is-touched) svg { transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
