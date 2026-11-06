@@ -395,8 +395,50 @@ h1 {
   .hero-centred .portrait, .hero-photo-above .portrait { order: 0; width: min(100%, 240px); height: auto; aspect-ratio: 1; margin: 0 0 32px; }
   .hero-centred .portrait { margin-inline: auto; }
 }
+/* a paper's links: the same hairline as links in the text, darkening left to right on hover */
+.paper a, .paper-toggle, .dated-list p a {
+  padding-bottom: 1px;
+  background: linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
+              linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;
+  transition: background-size 350ms var(--ease), color 200ms var(--ease);
+}
+.paper a:hover, .paper-toggle:hover, .dated-list p a:hover, .paper-toggle[aria-expanded="true"] { background-size: 100% 1px, 100% 1px; }
+.paper a.is-touched, .paper-toggle.is-touched, .dated-list p a.is-touched { background-size: 100% 1px, 100% 1px; }
+/* the lines keep their 4px apart, as margins so that a closed abstract adds nothing under the links */
+.paper { gap: 0; }
+.paper > p + p { margin-top: 4px; }
+/* the links sit on a line of their own, in the same type as the date */
+.paper .paper-links {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 18px; margin-top: 7px;
+  font-family: var(--mono); font-size: calc(12px * var(--fs)); font-weight: var(--w-mono); letter-spacing: var(--track-mono);
+}
+.paper-toggle {
+  appearance: none; -webkit-appearance: none; margin: 0; padding: 0 0 1px; border: 0; border-radius: 0;
+  color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer;
+}
+.paper-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+/* once the citation is copied: the word turns orange and its line draws back */
+.paper a.paper-cite.is-copied { color: var(--dot); background-size: 0 1px, 0 1px; }
+/* the abstract opens in place, under the links */
+.paper-abstract {
+  display: grid; grid-template-rows: 0fr; opacity: 0; visibility: hidden;
+  transition: grid-template-rows 380ms var(--ease), opacity 300ms var(--ease), visibility 380ms;
+}
+.paper-abstract.is-open { grid-template-rows: 1fr; opacity: 1; visibility: visible; }
+.paper-abstract > div { min-height: 0; overflow: hidden; }
+.paper-abstract p { padding-top: 14px; }
+@media (max-width: 520px) {
+  .paper .paper-links { column-gap: 14px; }
+  .paper-abstract { margin-left: -92px; }   /* on phones it takes the room under the date too: the date column is 80px, then a 12px gap */
+}
+/* on touch screens the links are easier to hit than their words are big */
+@media (pointer: coarse) {
+  .paper-links a, .paper-toggle { position: relative; }
+  .paper-links a::after, .paper-toggle::after { content: ""; position: absolute; inset: -12px -7px; }
+}
 </style>
 <script data-goatcounter="https://hongjun43.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<noscript><style>.paper-toggle { display: none; }</style></noscript>
 </head>
 <body>
 
@@ -476,7 +518,7 @@ h1 {
   <section id="publications" class="section">
     <h2>Publications</h2>
     <ul class="dated-list">
-      <li><time datetime="2026-10">Oct 2026</time><div class="paper"><p class="paper-title">Discovering Learning Rules that Shape Others</p><p><strong>Hong Jun Lee*</strong>, Ziyan Wang, Jun Wang, Stefanos Leonardos, Yali Du</p><p>Under review</p></div></li>
+      <li><time datetime="2026-11">Nov 2026</time><div class="paper"><p class="paper-title"><a href="https://arxiv.org/abs/2611.08335">Discovering Learning Rules that Shape Others</a></p><p><strong>Hong Jun Lee</strong>, Ziyan Wang, Jun Wang, Stefanos Leonardos, Yali Du</p><p>Under review</p><p class="paper-links"><a href="https://arxiv.org/abs/2611.08335" aria-label="Discovering Learning Rules that Shape Others on arXiv">arXiv</a><a href="https://arxiv.org/pdf/2611.08335" aria-label="PDF of Discovering Learning Rules that Shape Others">PDF</a><button type="button" class="paper-toggle" aria-expanded="false" aria-controls="abstract-2611-08335">Abstract</button><a class="paper-cite" href="https://arxiv.org/bibtex/2611.08335" title="Copy the BibTeX citation" aria-live="polite" data-bibtex="@misc{lee2026discoveringlearningrulesshape,&#10;      title={Discovering Learning Rules that Shape Others},&#10;      author={Hong Jun Lee and Ziyan Wang and Jun Wang and Stefanos Leonardos and Yali Du},&#10;      year={2026},&#10;      eprint={2611.08335},&#10;      archivePrefix={arXiv},&#10;      primaryClass={cs.LG},&#10;      url={https://arxiv.org/abs/2611.08335},&#10;}">BibTeX</a></p><div class="paper-abstract" id="abstract-2611-08335"><div><p>In general-sum games, self-interested learners can reach outcomes that are poor for everyone, which has motivated methods that shape the opponent’s learning. Methods like Learning with Opponent-Learning Awareness (LOLA), which differentiates through the opponent’s learning process, and Model-Free Opponent Shaping (M-FOS), which uses model-free optimisation methods for long-horizon opponent shaping, have enabled mutual cooperation and exploitation of learners. However, these methods require access to the opponent’s parameters, policy, rewards or learning rule during deployment. In single-agent reinforcement learning, update rules discovered by meta-learning have achieved state-of-the-art results (e.g. DiscoRL). These rules are separate from the policy they train and read only the agent’s own experience. We hereby extend this framework to general-sum settings by introducing Discovered Update Rule for Opponent Shaping (DUOS). To the best of our knowledge, this is the first method to discover an update rule for an agent in general-sum games. DUOS meta-trains the rule to maximise the agent’s expected return over its lifetime, and updates an inner network using the agent’s own experience. We show that our discovered rule exhibits behaviour consistent with opponent shaping without reading opponent policies or parameters, and ranks 1st in normalised mean score and 1st in self-play among tournament entrants.</p></div></div></div></li>
     </ul>
     <!--
     Publication list scaffolding, hidden until there is a paper. To restore it, delete the comment
@@ -514,6 +556,7 @@ h1 {
   <section id="news" class="section">
     <h2>News</h2>
     <ul class="dated-list">
+      <li><time datetime="2026-11">Nov 2026</time><p>Posted our paper <a href="https://arxiv.org/abs/2611.08335">Discovering Learning Rules that Shape Others</a> on arXiv.</p></li>
       <li><time datetime="2026-06">Jun 2026</time><p>Started my PhD at King’s College London.</p></li>
     </ul>
   </section>
@@ -621,6 +664,33 @@ h1 {
     }, { passive: true });
     window.addEventListener('scroll', check, { passive: true });
     document.documentElement.addEventListener('pointerleave', function () { pointer = null; check(); });
+  })();
+</script>
+<script>
+  // Publications: "Abstract" opens the abstract in place; "BibTeX" copies the citation and says so for a moment.
+  // (It is a link to arXiv's BibTeX page, which still opens with no clipboard or in a new tab.)
+  (function () {
+    document.querySelectorAll('.paper-toggle').forEach(function (button) {
+      var panel = document.getElementById(button.getAttribute('aria-controls'));
+      button.addEventListener('click', function () {
+        var open = button.getAttribute('aria-expanded') !== 'true';
+        button.setAttribute('aria-expanded', open ? 'true' : 'false');
+        panel.classList.toggle('is-open', open);
+      });
+    });
+    document.querySelectorAll('.paper-cite').forEach(function (link) {
+      var label = link.textContent, timer = 0;
+      link.addEventListener('click', function (e) {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || !navigator.clipboard) return;
+        e.preventDefault();
+        navigator.clipboard.writeText(link.getAttribute('data-bibtex')).then(function () {
+          link.textContent = 'Copied';
+          link.classList.add('is-copied');
+          window.clearTimeout(timer);
+          timer = window.setTimeout(function () { link.textContent = label; link.classList.remove('is-copied'); }, 1800);
+        }, function () { window.location.href = link.href; });
+      });
+    });
   })();
 </script>
 
