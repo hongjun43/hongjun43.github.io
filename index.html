@@ -123,10 +123,10 @@ h1, h2, h3, p { margin: 0; }
 .brand { font-size: calc(17px * var(--fs)); font-weight: var(--w-heading); line-height: 1; letter-spacing: -0.03em; }   /* same weight as the name in the hero */
 .nav-links { display: flex; align-items: center; gap: 30px; font-size: calc(13px * var(--fs)); font-weight: var(--w-nav); }
 .nav-links a:not(.btn), .footer a { position: relative; }
-/* orange underline that grows from the left on hover */
+/* underline that grows from the left on hover */
 .brand::after, .nav-links a:not(.btn)::after, .footer a::after {
   content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 1px;
-  background: var(--dot); transition: right 220ms var(--ease);
+  background: currentColor; transition: right 220ms var(--ease);
 }
 .brand:hover::after, .nav-links a:not(.btn):hover::after, .footer a:hover::after { right: 0; }
 .brand.is-touched::after, .nav-links a:not(.btn).is-touched::after, .footer a.is-touched::after { right: 0; }
@@ -206,10 +206,10 @@ h1 {
   font-weight: var(--w-heading); letter-spacing: var(--track-h2);
 }
 .prose { display: grid; gap: 18px; font-size: calc(17px * var(--fs)); line-height: 1.55; letter-spacing: var(--track-list); }
-/* link underlines turn orange from left to right on hover */
+/* link underlines darken from left to right on hover */
 .prose a {
   padding-bottom: 1px;
-  background: linear-gradient(var(--dot), var(--dot)) 0 100% / 0 1px no-repeat,
+  background: linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
               linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;
   transition: background-size 350ms var(--ease);
 }
@@ -395,10 +395,10 @@ h1 {
   .hero-centred .portrait, .hero-photo-above .portrait { order: 0; width: min(100%, 240px); height: auto; aspect-ratio: 1; margin: 0 0 32px; }
   .hero-centred .portrait { margin-inline: auto; }
 }
-/* a paper's links: the same hairline as links in the text, turning orange left to right on hover */
+/* a paper's links: the same hairline as links in the text, darkening left to right on hover */
 .paper a, .paper-toggle {
   padding-bottom: 1px;
-  background: linear-gradient(var(--dot), var(--dot)) 0 100% / 0 1px no-repeat,
+  background: linear-gradient(var(--ink), var(--ink)) 0 100% / 0 1px no-repeat,
               linear-gradient(var(--line), var(--line)) 0 100% / 100% 1px no-repeat;
   transition: background-size 350ms var(--ease), color 200ms var(--ease);
 }
@@ -519,7 +519,7 @@ h1 {
   <section id="publications" class="section">
     <h2>Publications</h2>
     <ul class="dated-list">
-      <li><time datetime="2026-11">Nov 2026</time><div class="paper"><p class="paper-title"><a href="https://arxiv.org/abs/2611.08335">Discovering Learning Rules that Shape Others</a></p><p><strong>Hong Jun Lee</strong>, Ziyan Wang, Jun Wang, Stefanos Leonardos, Yali Du</p><p>Under review</p><p class="paper-links"><a href="https://arxiv.org/abs/2611.08335" aria-label="Discovering Learning Rules that Shape Others on arXiv">arXiv</a><a href="https://arxiv.org/pdf/2611.08335" aria-label="PDF of Discovering Learning Rules that Shape Others">PDF</a><button type="button" class="paper-toggle" aria-expanded="false" aria-controls="abstract-2611-08335">Abstract</button><a class="paper-cite" href="https://arxiv.org/bibtex/2611.08335" title="Copy the BibTeX citation" aria-live="polite" data-bibtex="@misc{lee2026discoveringlearningrulesshape,&#10;      title={Discovering Learning Rules that Shape Others},&#10;      author={Hong Jun Lee and Ziyan Wang and Jun Wang and Stefanos Leonardos and Yali Du},&#10;      year={2026},&#10;      eprint={2611.08335},&#10;      archivePrefix={arXiv},&#10;      primaryClass={cs.LG},&#10;      url={https://arxiv.org/abs/2611.08335},&#10;}">BibTeX</a></p><div class="paper-abstract" id="abstract-2611-08335"><div><p>In general-sum games, self-interested learners can reach outcomes that are poor for everyone, which has motivated methods that shape the opponent’s learning. Methods like Learning with Opponent-Learning Awareness (LOLA), which differentiates through the opponent’s learning process, and Model-Free Opponent Shaping (M-FOS), which uses model-free optimisation methods for long-horizon opponent shaping, have enabled mutual cooperation and exploitation of learners. However, these methods require access to the opponent’s parameters, policy, rewards or learning rule during deployment. In single-agent reinforcement learning, update rules discovered by meta-learning have achieved state-of-the-art results (e.g. DiscoRL). These rules are separate from the policy they train and read only the agent’s own experience. We hereby extend this framework to general-sum settings by introducing Discovered Update Rule for Opponent Shaping (DUOS). To the best of our knowledge, this is the first method to discover an update rule for an agent in general-sum games. DUOS meta-trains the rule to maximise the agent’s expected return over its lifetime, and updates an inner network using the agent’s own experience. We show that our discovered rule exhibits behaviour consistent with opponent shaping without reading opponent policies or parameters, and ranks 1st in normalised mean score and 1st in self-play among tournament entrants.</p></div></div></div></li>
+      <li><time datetime="2026-11">Nov 2026</time><div class="paper"><p class="paper-title"><a href="https://arxiv.org/abs/2611.08335">Discovering Update Rules for Opponent Shaping in General-Sum Games</a></p><p><strong>Hong Jun Lee</strong>, Ziyan Wang, Jun Wang, Stefanos Leonardos, Yali Du</p><p>Under review</p><p class="paper-links"><a href="https://arxiv.org/abs/2611.08335" aria-label="Discovering Update Rules for Opponent Shaping in General-Sum Games on arXiv">arXiv</a><a href="https://arxiv.org/pdf/2611.08335" aria-label="PDF of Discovering Update Rules for Opponent Shaping in General-Sum Games">PDF</a><button type="button" class="paper-toggle" aria-expanded="false" aria-controls="abstract-2611-08335">Abstract</button><a class="paper-cite" href="https://arxiv.org/bibtex/2611.08335" title="Copy the BibTeX citation" aria-live="polite" data-bibtex="@misc{lee2026discoveringupdaterulesopponent,&#10;      title={Discovering Update Rules for Opponent Shaping in General-Sum Games},&#10;      author={Hong Jun Lee and Ziyan Wang and Jun Wang and Stefanos Leonardos and Yali Du},&#10;      year={2026},&#10;      eprint={2611.08335},&#10;      archivePrefix={arXiv},&#10;      primaryClass={cs.LG},&#10;      url={https://arxiv.org/abs/2611.08335},&#10;}">BibTeX</a></p><div class="paper-abstract" id="abstract-2611-08335"><div><p>In general-sum games, self-interested learners can reach outcomes that are poor for everyone, which has motivated methods that shape the opponent’s learning. Methods like Learning with Opponent-Learning Awareness (LOLA), which differentiates through the opponent’s learning process, and Model-Free Opponent Shaping (M-FOS), which uses model-free optimisation methods for long-horizon opponent shaping, have enabled mutual cooperation and exploitation of learners. However, these methods require access to the opponent’s parameters, policy, rewards or learning rule during deployment. In single-agent reinforcement learning, update rules discovered by meta-learning have achieved state-of-the-art results (e.g. DiscoRL). These rules are separate from the policy they train and read only the agent’s own experience. We hereby extend this framework to general-sum settings by introducing Discovered Update Rule for Opponent Shaping (DUOS). To the best of our knowledge, this is the first method to discover an update rule for an agent in general-sum games. DUOS meta-trains the rule to maximise the agent’s expected return over its lifetime, and updates an inner network using the agent’s own experience. We show that our discovered rule exhibits behaviour consistent with opponent shaping without reading opponent policies or parameters, and ranks 1st in normalised mean score and 1st in self-play among tournament entrants.</p></div></div></div></li>
     </ul>
     <!--
     Publication list scaffolding, hidden until there is a paper. To restore it, delete the comment
